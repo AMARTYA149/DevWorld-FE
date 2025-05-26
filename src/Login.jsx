@@ -2,15 +2,21 @@ import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("akshay@gmail.com");
+  const [emailId, setEmailId] = useState("babita@gmail.com");
   const [password, setPassword] = useState("Babita@123987");
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:7777/login", {
-        emailId,
-        password,
-      });
+      const res = await axios.post(
+        "http://localhost:7777/login",
+        {
+          emailId,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
     } catch (error) {
       console.log(error);
     }
