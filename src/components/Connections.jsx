@@ -14,8 +14,6 @@ const Connections = () => {
         withCredentials: true,
       });
 
-      console.log(res?.data?.data);
-
       dispatch(addConnections(res?.data?.data));
     } catch (error) {
       console.log("error: ", error);
@@ -37,11 +35,12 @@ const Connections = () => {
     <div className=" text-center my-10">
       <h1 className="text-2xl text-bold my-5">Connections</h1>
       <div className="flex flex-col items-center text-left gap-10">
-        {connections.map((connection) => {
+        {connections.map((connection, index) => {
           const { firstName, lastName, photoUrl, age, gender, about } =
             connection;
           return (
             <UserCard
+              key={index}
               isConnections={true}
               user={{ firstName, lastName, age, gender, about, photoUrl }}
             />

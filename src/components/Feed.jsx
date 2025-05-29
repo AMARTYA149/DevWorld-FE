@@ -26,10 +26,27 @@ const Feed = () => {
     getFeed();
   }, []);
 
+  if (!feed) {
+    return;
+  }
   return (
     feed && (
-      <div className="flex justify-center my-10">
-        <UserCard user={feed.data[0]} />
+      // <div className="flex justify-center my-10">
+      //   <UserCard user={feed.data[0]} />
+      // </div>
+
+      <div className="flex flex-col items-center text-left gap-10 my-10">
+        {feed.data.map((feedItem, index) => {
+          const { firstName, lastName, photoUrl, age, gender, about } =
+            feedItem;
+          return (
+            <UserCard
+              key={index}
+              isConnections={false}
+              user={{ firstName, lastName, age, gender, about, photoUrl }}
+            />
+          );
+        })}
       </div>
     )
   );
