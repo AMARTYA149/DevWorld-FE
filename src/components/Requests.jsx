@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestSlice";
+import { addRequests, removeRequest } from "../utils/requestSlice";
 import UserCard from "./UserCard";
 
 const Requests = () => {
@@ -19,6 +19,20 @@ const Requests = () => {
     }
   };
 
+  const reviewRequests = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + _id,
+        {},
+        { withCredentials: true }
+      );
+
+      dispatch(removeRequest(_id));
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -27,7 +41,11 @@ const Requests = () => {
   }
 
   if (requests.length === 0) {
-    return <h1 className="text-2xl text-bold">No Requests found!</h1>;
+    return (
+      <h1 className="text-2xl text-bold text-center my-10">
+        No Requests found!
+      </h1>
+    );
   }
   return (
     <div className=" text-center my-10">
@@ -40,9 +58,23 @@ const Requests = () => {
             <UserCard
               key={index}
               isConnections={true}
-              isRequests={true}
               user={{ firstName, lastName, age, gender, about, photoUrl }}
-            />
+            >
+              <div className="card-actions justify-center my-4">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => reviewRequests("accepted", request._id)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => reviewRequests("rejected", request._id)}
+                >
+                  Reject
+                </button>
+              </div>
+            </UserCard>
           );
         })}
       </div>

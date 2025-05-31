@@ -1,7 +1,15 @@
-const UserCard = ({ user, isConnections = false, isRequests = false }) => {
+import { Outlet } from "react-router-dom";
+
+const UserCard = ({
+  user,
+  isConnections = false,
+
+  children,
+}) => {
   const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
   return (
     <div className="card bg-base-300 w-96 shadow-xl h-150">
+      <Outlet />
       <figure>
         <img src={photoUrl} alt="User photo" />
       </figure>
@@ -17,12 +25,7 @@ const UserCard = ({ user, isConnections = false, isRequests = false }) => {
           </div>
         )}
 
-        {isRequests && (
-          <div className="card-actions justify-center my-4">
-            <button className="btn btn-primary">Accept</button>
-            <button className="btn btn-secondary">Reject</button>
-          </div>
-        )}
+        {children}
       </div>
     </div>
   );
