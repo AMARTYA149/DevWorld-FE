@@ -4,10 +4,12 @@ import axios from "axios";
 import { addFeed, removeUserFromFeed } from "../utils/feedSlice";
 import { useEffect } from "react";
 import UserCard from "./UserCard";
+import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSendRequest = async (status, userId) => {
     try {
@@ -18,7 +20,10 @@ const Feed = () => {
       );
       dispatch(removeUserFromFeed(userId));
     } catch (error) {
-      console.log("Error: ", error);
+      if (error.status === 400) {
+        console.log("Error: ", error);
+        return navigate("/login");
+      }
     }
   };
 
@@ -31,7 +36,10 @@ const Feed = () => {
       dispatch(addFeed(res.data.data));
     } catch (error) {
       // Handle error
-      console.log("Error fetching feed:", error);
+      if (error.status === 400) {
+        console.log("Error: ", error);
+        return navigate("/login");
+      }
     }
   };
 

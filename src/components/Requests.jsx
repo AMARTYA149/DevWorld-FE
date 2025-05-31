@@ -4,10 +4,12 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestSlice";
 import UserCard from "./UserCard";
+import { useNavigate } from "react-router-dom";
 
 const Requests = () => {
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fetchRequests = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/requests/received", {
@@ -15,7 +17,10 @@ const Requests = () => {
       });
       dispatch(addRequests(res.data.data));
     } catch (error) {
-      console.log("Error: ", error);
+      if (error.status === 400) {
+        console.log("Error: ", error);
+        return navigate("/login");
+      }
     }
   };
 
@@ -29,7 +34,10 @@ const Requests = () => {
 
       dispatch(removeRequest(_id));
     } catch (error) {
-      console.log("Error: ", error);
+      if (error.status === 400) {
+        console.log("Error: ", error);
+        return navigate("/login");
+      }
     }
   };
 

@@ -4,17 +4,19 @@ import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
+  const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const saveProfile = async () => {
     setError("");
@@ -33,7 +35,10 @@ const EditProfile = ({ user }) => {
         setShowToast(false);
       }, 3000);
     } catch (error) {
-      setError(error.response.data);
+      if (error.status === 400) {
+        setError(error.response.data);
+        return navigate("/login");
+      }
     }
   };
 
@@ -89,7 +94,6 @@ const EditProfile = ({ user }) => {
                   <select
                     value={gender}
                     onChange={(e) => {
-                      console.log("e:", e);
                       setGender(e.target.value);
                     }}
                     className="select select-bordered"
