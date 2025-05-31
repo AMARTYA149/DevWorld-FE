@@ -1,4 +1,4 @@
-const UserCard = ({ user, isConnections = false }) => {
+const UserCard = ({ user, isConnections = false, isRequests = false }) => {
   const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
   return (
     <div className="card bg-base-300 w-96 shadow-xl h-150">
@@ -14,6 +14,13 @@ const UserCard = ({ user, isConnections = false }) => {
           <div className="card-actions justify-center my-4">
             <button className="btn btn-primary">Ignore</button>
             <button className="btn btn-secondary">Interested</button>
+          </div>
+        )}
+
+        {isRequests && (
+          <div className="card-actions justify-center my-4">
+            <button className="btn btn-primary">Accept</button>
+            <button className="btn btn-secondary">Reject</button>
           </div>
         )}
       </div>
