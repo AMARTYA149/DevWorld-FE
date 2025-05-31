@@ -57,7 +57,6 @@ const Requests = () => {
           return (
             <UserCard
               key={index}
-              isConnections={true}
               user={{ firstName, lastName, age, gender, about, photoUrl }}
             >
               <div className="card-actions justify-center my-4">

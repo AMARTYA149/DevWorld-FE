@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 
 const UserCard = ({
   user,
-  isConnections = false,
 
   children,
 }) => {
@@ -17,13 +16,6 @@ const UserCard = ({
         <h2 className="card-title text-2xl">{firstName + " " + lastName}</h2>
         <p>{about}</p>
         {age && gender && <p>{age + ", " + gender}</p>}
-
-        {!isConnections && (
-          <div className="card-actions justify-center my-4">
-            <button className="btn btn-primary">Ignore</button>
-            <button className="btn btn-secondary">Interested</button>
-          </div>
-        )}
 
         {children}
       </div>

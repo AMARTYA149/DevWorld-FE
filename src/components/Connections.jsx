@@ -41,7 +41,6 @@ const Connections = () => {
           return (
             <UserCard
               key={index}
-              isConnections={true}
               user={{ firstName, lastName, age, gender, about, photoUrl }}
             />
           );
