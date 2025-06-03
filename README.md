@@ -29,4 +29,33 @@
 - Show Toast Message on save of profile
 - New Page - See all my connections
 - New Page - See all my Conenction REquests
-- Feature - accept/reject connection request
+- Feature - Accept/Reject connection request
+- Send/Ignore the user card from the feed
+- Signup New User
+- E2E testing
+
+Body
+NavBar
+Route=/ => Feed
+Route=/login => Login
+Route=/connetions => Connections
+Router=/profile => Profile
+
+    # Deployment
+
+    - Signup on AWS
+    - Launch instance
+    - chmod 400 <secret>.pem
+    - ssh -i "devTinder-secret.pem" ubuntu@ec2-43-204-96-49.ap-south-1.compute.amazonaws.com
+    - Install Node version 16.17.0
+    - Git clone
+    - Frontend
+        - npm install  -> dependencies install
+        - npm run build
+        - sudo apt update
+        - sudo apt install nginx
+        - sudo systemctl start nginx
+        - sudo systemctl enable nginx
+        - Copy code from dist(build files) to /var/www/html/
+        - sudo scp -r dist/* /var/www/html/
+        - Enable port :80 of your instance
