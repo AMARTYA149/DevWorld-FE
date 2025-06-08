@@ -46,7 +46,7 @@ Router=/profile => Profile
     - Signup on AWS
     - Launch instance
     - chmod 400 <secret>.pem
-    - ssh -i "DevWorld-secret.pem" ubuntu@ec2-13-60-237-217.eu-north-1.compute.amazonaws.com
+    - ssh -i "devTinder-secret.pem" ubuntu@ec2-43-204-96-49.ap-south-1.compute.amazonaws.com
     - Install Node version 16.17.0
     - Git clone
     - Frontend
@@ -59,3 +59,13 @@ Router=/profile => Profile
         - Copy code from dist(build files) to /var/www/html/
         - sudo scp -r dist/* /var/www/html/
         - Enable port :80 of your instance
+    - Backend
+        - updated DB password
+        - allowed ec2 instance public IP on mongodb server
+        - npm intsall pm2 -g
+        - pm2 start npm --name "devTinder-backend" -- start
+        - pm2 logs
+        - pm2 list, pm2 flush <name> , pm2 stop <name>, pm2 delete <name>
+        - config nginx - /etc/nginx/sites-available/default
+        - restart nginx - sudo systemctl restart nginx
+        - Modify the BASEURL in frontend project to "/api"
